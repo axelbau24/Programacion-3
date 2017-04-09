@@ -54,7 +54,7 @@ public class Main {
                     g.insertarArista(i, i + j);
 
                     if (conCiclos) {
-                        int arista = (i + j) / 2;
+                        int arista = (int) (Math.random() * (i + j - 1));
                         g.insertarArista(i, arista);
                     }
                 }

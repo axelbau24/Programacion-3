@@ -7,6 +7,7 @@ public class DFSIterativo extends DFS {
 
     /**
      * Recorrido DFS (Depth First Search) iterativo.
+     *
      * @param v Vertice inicial de donde empieza el recorrido
      * @return Lista con todos los vertices recorridos
      */
@@ -23,19 +24,11 @@ public class DFSIterativo extends DFS {
 
             for (int i = 0; i < nextVecinos.size(); i++) {
 
-                // Si el vertice inicial tiene de vecino a si mismo, se borra de
-                // la lista de vecinos y decimos que ya hay un ciclo en el grafo.
-                if (v.equals(nextVecinos.get(i))) {
-                    if (nextVecinos.size() - 1 == i) i--;
-                    nextVecinos.remove(v);
-                    ciclo = true;
-                }
-
-
                 Vertice vecino = getVertice(nextVecinos.get(i));
 
-                if(!vecino.isVisited()) verts.add(vecino);
+                if (!vecino.isVisited()) verts.add(vecino);
                 vecino.setVisited(true);
+
 
                 // Si el vecino todavia no termino su ejecucion, pero tiene a todos sus vecinos visitados
                 // entonces lo terminamos y volvemos hacia el ultimo vecino ejecutado
@@ -52,7 +45,7 @@ public class DFSIterativo extends DFS {
 
                 // Si este vecino todavia no termino, pero todavia tiene vecinos sin visitar
                 // entonces vamos al siguiente conjunto de vecinos (Vecinos del vecino actual)
-                else if (!vecino.isFinished()) {
+                else if (!vecino.isFinished() && !pilaEjecucion.contains(vecino)) {
                     pilaEjecucion.push(vecino);
                     nextVecinos = grafo.vecinos(vecino);
                     i = -1;
@@ -60,7 +53,6 @@ public class DFSIterativo extends DFS {
             }
 
             v.setFinished(true);
-
         }
 
         return verts;
